@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "temporal-awareness-mcp"
 version = "0.1.0"
-description = "A robust MCP server that gives language models temporal awareness and calculation abilities."
+description = "MCP server providing temporal awareness and time calculation capabilities for AI agents."
 authors = ["pmbstyle <slava@trofimov.ca>"]
 license = "MIT"
 readme = "README.md"
@@ -9,11 +9,16 @@ packages = [{include = "temporal_awareness_mcp", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastmcp = ">=2.3.2"
+mcp = "^1.2.0"
 pydantic = ">=2.8.2"
 python-dateutil = ">=2.9.0"
-uvicorn = ">=0.35.0"
 tzdata = "*"
+starlette = "^0.39.0"
+uvicorn = "^0.32.0"
+
+[tool.poetry.scripts]
+temporal-mcp-stdio = "temporal_awareness_mcp.stdio_main:main"
+temporal-mcp-http = "temporal_awareness_mcp.http_main:main"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.2.2"
