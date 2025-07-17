@@ -17,7 +17,7 @@ A Model Context Protocol (MCP) server that provides AI agents with comprehensive
 
 1. **Install dependencies**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/pmbstyle/temporal-awareness-mcp.git
    cd temporal-awareness-mcp
    poetry install
    ```
