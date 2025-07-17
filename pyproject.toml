@@ -1,0 +1,43 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "temporal-awareness-mcp"
+version = "0.1.0"
+description = "A robust MCP server that gives language models temporal awareness and time calculation abilities."
+authors = [
+    { name = "Your Name", email = "you@example.com" },
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = "^3.12"
+dependencies = [
+    "fastmcp>=2.3.2",
+    "pydantic>=2.8.2",
+    "python-dateutil>=2.9.0",
+    "uvicorn>=0.35.0",
+    "tzdata",
+]
+
+[project.scripts]
+server = "temporal_awareness_mcp.main:app"
+
+[tool.poetry]
+packages = [{include = "temporal_awareness_mcp", from = "src"}]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+ruff = "^0.5.0"
+httpx = "^0.28.1"
+pytest-asyncio = "^0.23.7"
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
