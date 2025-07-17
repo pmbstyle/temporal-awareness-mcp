@@ -1,27 +1,6 @@
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[project]
-name = "temporal-awareness-mcp"
-version = "0.1.0"
-description = "A robust MCP server that gives language models temporal awareness and time calculation abilities."
-authors = [
-    { name = "Your Name", email = "you@example.com" },
-]
-license = { text = "MIT" }
-readme = "README.md"
-requires-python = "^3.12"
-dependencies = [
-    "fastmcp>=2.3.2",
-    "pydantic>=2.8.2",
-    "python-dateutil>=2.9.0",
-    "uvicorn>=0.35.0",
-    "tzdata",
-]
-
-[project.scripts]
-server = "temporal_awareness_mcp.main:app"
 
 [tool.poetry]
 packages = [{include = "temporal_awareness_mcp", from = "src"}]
@@ -32,9 +11,36 @@ ruff = "^0.5.0"
 httpx = "^0.28.1"
 pytest-asyncio = "^0.23.7"
 
+
+[project]
+name = "temporal-awareness-mcp"
+version = "0.1.0"
+description = "A robust MCP server that gives language models temporal awareness and calculation abilities."
+authors = [
+    { name = "Your Name", email = "you@example.com" },
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = "^3.12"
+
+dependencies = [
+    "fastmcp>=2.3.2",
+    "pydantic>=2.8.2",
+    "python-dateutil>=2.9.0",
+    "uvicorn>=0.35.0",
+    "tzdata",
+]
+
+[project.urls]
+Homepage = "https://github.com/pmbstyle/temporal-awareness-mcp"
+Repository = "https://github.com/pmbstyle/temporal-awareness-mcp"
+
 [tool.ruff]
 line-length = 88
 target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "C4", "B"]
 
 [tool.ruff.format]
 quote-style = "double"
