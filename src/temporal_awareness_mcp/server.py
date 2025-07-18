@@ -172,26 +172,41 @@ class TemporalAwarenessServer:
         sse = SseServerTransport("/messages/")
         
         async def handle_sse(request):
-            async with sse.connect_sse(
-                request.scope, request.receive, request._send
-            ) as streams:
-                await self.server.run(
-                    streams[0], streams[1],
-                    InitializationOptions(
-                        server_name="temporal-awareness-mcp",
-                        server_version="0.1.0",
-                        capabilities=ServerCapabilities(
-                            tools=ToolsCapability()
+            try:
+                async with sse.connect_sse(
+                    request.scope, request.receive, request._send
+                ) as streams:
+                    await self.server.run(
+                        streams[0], streams[1],
+                        InitializationOptions(
+                            server_name="temporal-awareness-mcp",
+                            server_version="0.1.0",
+                            capabilities=ServerCapabilities(
+                                tools=ToolsCapability()
+                            ),
                         ),
-                    ),
-                )
+                    )
+            except Exception as e:
+                import sys
+                print(f"Error in handle_sse: {e}", file=sys.stderr)
+                raise
             return Response()
+        
+        from starlette.middleware.cors import CORSMiddleware
         
         app = Starlette(
             routes=[
                 Route("/sse", endpoint=handle_sse, methods=["GET"]),
                 Mount("/messages/", app=sse.handle_post_message),
             ],
+        )
+        
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
         )
         
         config = uvicorn.Config(app, host=host, port=port)
