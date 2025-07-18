@@ -2,7 +2,7 @@
 
 from typing import Any
 from mcp.server import Server
-from mcp.types import Tool
+from mcp.types import Tool, ServerCapabilities, ToolsCapability
 
 from .tools import core, contextual
 from . import models
@@ -180,6 +180,9 @@ class TemporalAwarenessServer:
                     InitializationOptions(
                         server_name="temporal-awareness-mcp",
                         server_version="0.1.0",
+                        capabilities=ServerCapabilities(
+                            tools=ToolsCapability()
+                        ),
                     ),
                 )
             return Response()
